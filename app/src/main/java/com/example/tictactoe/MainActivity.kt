@@ -46,12 +46,14 @@ class MainActivity : AppCompatActivity() {
         if(button.text == "") {
             if (directions.text == "Player X's Turn") {
                 button.text = "X"
-                changePlayer(directions)
             }
             else if (directions.text == "Player O's Turn") {
                 button.text = "O"
-                changePlayer(directions)
             }
+
+           if(!winner()){
+               changePlayer(directions)
+           }
         }
     }
 
@@ -65,6 +67,68 @@ class MainActivity : AppCompatActivity() {
         } else if (directions.text == "Player O's Turn") {
             directions.text = "Player X's Turn"
         }
+    }
+
+    /*
+    *Determines if there is a winner of the game
+     */
+    fun winner():Boolean{
+        var winner : Boolean = false
+        val button1 = findViewById<Button>(R.id.button1).text
+        val button2 = findViewById<Button>(R.id.button2).text
+        val button3 = findViewById<Button>(R.id.button3).text
+        val button4 = findViewById<Button>(R.id.button4).text
+        val button5 = findViewById<Button>(R.id.button5).text
+        val button6 = findViewById<Button>(R.id.button6).text
+        val button7 = findViewById<Button>(R.id.button7).text
+        val button8 = findViewById<Button>(R.id.button8).text
+        val button9 = findViewById<Button>(R.id.button9).text
+
+        val winnerMessage = findViewById<TextView>(R.id.directions)
+
+        //determines if there is a tie game
+        if(button1 != "" && button2 != "" && button3 != "" &&
+            button4 != "" && button5 != "" && button6 != "" &&
+            button7 != "" && button8 != "" && button9 != "" &&
+            button1 != "" && button4 != "" && button7 != "" &&
+            button2 != "" && button5 != "" && button8 != "" &&
+            button3 != "" && button6 != "" && button9 != "" &&
+            button1 != "" && button5 != "" && button9 != "" &&
+            button3 != "" && button5 != "" && button7 != "" ){
+
+            winnerMessage.text = "Cat's Game"
+            winner = true
+        }
+
+        //determines is player x wins
+        if( (button1 == "X" && button2 == "X" && button3 == "X") ||
+            (button4 == "X" && button5 == "X" && button6 == "X") ||
+            (button7 == "X" && button8 == "X" && button9 == "X") ||
+            (button1 == "X" && button4 == "X" && button7 == "X") ||
+            (button2 == "X" && button5 == "X" && button8 == "X") ||
+            (button3 == "X" && button6 == "X" && button9 == "X") ||
+            (button1 == "X" && button5 == "X" && button9 == "X") ||
+            (button3 == "X" && button5 == "X" && button7 == "X")){
+
+            winnerMessage.text = "Player X Wins!!!"
+            winner = true
+        }
+
+        //determines if player O wins
+        if( (button1 == "O" && button2 == "O" && button3 == "O") ||
+            (button4 == "O" && button5 == "O" && button6 == "O") ||
+            (button7 == "O" && button8 == "O" && button9 == "O") ||
+            (button1 == "O" && button4 == "O" && button7 == "O") ||
+            (button2 == "O" && button5 == "O" && button8 == "O") ||
+            (button3 == "O" && button6 == "O" && button9 == "O") ||
+            (button1 == "O" && button5 == "O" && button9 == "O") ||
+            (button3 == "O" && button5 == "O" && button7 == "O")){
+
+            winnerMessage.text = "Player O Wins!!!"
+            winner = true
+        }
+
+        return winner
     }
 
     /*
